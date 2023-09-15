@@ -2,11 +2,14 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"log"
 	"math"
 
 	pb "github.com/Akos-T/grpc-go-course/calculator/proto/calculator/v1"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 type Server struct {
@@ -93,4 +96,21 @@ func (s *Server) Max(stream pb.CalculatorService_MaxServer) error {
 			}
 		}
 	}
+}
+
+func (s *Server) Sqrt(ctx context.Context, req *pb.SqrtRequest) (*pb.SqrtResponse, error) {
+	log.Printf("Sqrt was invoked with: %v\n", req)
+
+	number := req.Number
+
+	if number < 0 {
+		return nil, status.Error(
+			codes.InvalidArgument,
+			fmt.Sprintf("Received a negative number: %d", number),
+		)
+	}
+
+	return &pb.SqrtResponse{
+		Result: math.Sqrt(float64(number)),
+	}, nil
 }

@@ -35,9 +35,18 @@ message MaxResponse {
   int64 max = 1;
 }
 
+message SqrtRequest {
+  int32 number = 1; // could be uint32
+}
+
+message SqrtResponse {
+  double result = 1;
+}
+
 service CalculatorService {
   rpc Add(AddRequest) returns (AddResponse);
   rpc Primes(PrimesRequest) returns (stream PrimesResponse);
   rpc Avg(stream AvgRequest) returns (AvgResponse);
   rpc Max(stream MaxRequest) returns (stream MaxResponse);
+  rpc Sqrt(SqrtRequest) returns (SqrtResponse);
 }
