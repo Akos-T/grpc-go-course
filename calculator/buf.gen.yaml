@@ -1,0 +1,13 @@
+version: v1
+managed:
+  enabled: true
+  go_package_prefix:
+    default: github.com/Akos-T/grpc-go-course/calculator/proto
+
+plugins:
+  - plugin: go
+    out: .
+    opt: paths=source_relative
+  - plugin: go-grpc
+    out: .
+    opt: paths=source_relative

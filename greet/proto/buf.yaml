@@ -1,0 +1,14 @@
+version: v1
+breaking:
+  use:
+    - FILE
+lint:
+  use:
+    - DEFAULT
+  ignore:
+    - google/type/datetime.proto
+  ignore_only:
+    PACKAGE_DIRECTORY_MATCH:
+      - dummy.proto
+    PACKAGE_VERSION_SUFFIX:
+      - dummy.proto
