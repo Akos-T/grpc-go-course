@@ -5,8 +5,11 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"time"
 
 	pb "github.com/Akos-T/grpc-go-course/greet/proto"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 func (s *Server) Greet(ctx context.Context, input *pb.GreetRequest) (*pb.GreetResponse, error) {
@@ -67,4 +70,21 @@ func (s *Server) GreetEveryone(stream pb.GreetService_GreetEveryoneServer) error
 			log.Fatalf("Error while sending data to client: %v\n", err)
 		}
 	}
+}
+
+func (s *Server) GreetWithDeadline(ctx context.Context, req *pb.GreetRequest) (*pb.GreetResponse, error) {
+	log.Printf("GreetWithDeadline was invoked with: %v\n", req)
+
+	for i := 0; i < 3; i++ {
+		if ctx.Err() == context.DeadlineExceeded {
+			log.Println("The client cancelled the request!")
+			return nil, status.Error(codes.Canceled, "The client cancelled the request")
+		}
+
+		time.Sleep(1 * time.Second)
+	}
+
+	return &pb.GreetResponse{
+		Result: "Hello " + req.FirstName,
+	}, nil
 }
