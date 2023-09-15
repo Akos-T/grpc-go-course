@@ -7,6 +7,8 @@ import (
 	"time"
 
 	pb "github.com/Akos-T/grpc-go-course/calculator/proto/calculator/v1"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 func doCalculation(client pb.CalculatorServiceClient) {
@@ -129,4 +131,26 @@ func doMax(client pb.CalculatorServiceClient) {
 	}()
 
 	<-waitChan
+}
+
+func doSqrt(client pb.CalculatorServiceClient, n int32) {
+	log.Println("doSqrt was invoked")
+
+	res, err := client.Sqrt(context.Background(), &pb.SqrtRequest{Number: n})
+	if err != nil {
+		e, ok := status.FromError(err)
+		if ok {
+			log.Printf("Error message from server: %s\n", e.Message())
+			log.Printf("Error code from server: %s\n", e.Code())
+
+			if e.Code() == codes.InvalidArgument {
+				log.Println("We probably sent a negative number!")
+				return
+			}
+		}
+
+		log.Fatalf("A non gRPC error: %v\n", err)
+	}
+
+	log.Printf("Sqrt: %f\n", res.Result)
 }
