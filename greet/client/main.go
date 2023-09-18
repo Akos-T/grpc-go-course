@@ -6,13 +6,25 @@ import (
 
 	pb "github.com/Akos-T/grpc-go-course/greet/proto"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/credentials"
 )
 
 const addr = "localhost:5051"
 
 func main() {
-	conn, err := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	opts := []grpc.DialOption{}
+	tls := true // Change it to false if you want to run without TLS
+	if tls {
+		certFile := "../ssl/ca.crt"
+		creds, err := credentials.NewClientTLSFromFile(certFile, "")
+		if err != nil {
+			log.Fatalf("Error while loading CA trust certificate: %v\n", err)
+		}
+
+		opts = append(opts, grpc.WithTransportCredentials(creds))
+	}
+
+	conn, err := grpc.Dial(addr, opts...)
 	if err != nil {
 		log.Fatalf("Failed to connect: %v\n", err)
 	}

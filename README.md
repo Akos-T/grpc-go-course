@@ -11,12 +11,13 @@ The `calculator` app I did on my own. (Of course at the end I checked the soluti
 - Instead of using a `makefile`, I'm using `Buf CLI` and `go generate`.
 
 ## How to build the apps
-1. Navigate to the project folder (greet or calculator)
-2. run `go generate`
-3. Start the server:
+1. **This is only needed for `greet`:** In the ssl folder, run ssl.sh to generate your self-signed certificates for TLS in greet
+2. Navigate to the project folder (greet or calculator)
+3. run `go generate`
+4. Start the server:
    1. In case of greet: ./bin/greet/server
    2. In case of calculator: ./bin/server
-4. Start the client:
+5. Start the client:
    1. In case of greet: ./bin/greet/client
    2. In case of calculator: ./bin/client
    
@@ -25,3 +26,4 @@ The `calculator` app I did on my own. (Of course at the end I checked the soluti
 - https://www.udemy.com/course/grpc-golang/
 - https://grpc.io/docs/languages/go/quickstart/
 - https://buf.build/docs/installation
+- https://github.com/Clement-Jean/grpc-go-course/blob/master/ssl/ssl.sh

@@ -1,2 +1,9 @@
+# binaries
 **/bin
+
+# generated files from proto
 **/*.pb.go
+
+# SSL files (run ssl.sh to generate your own)
+ssl/*
+!ssl/ssl.sh
