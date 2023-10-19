@@ -5,7 +5,7 @@ import (
 )
 
 type BlogItem struct {
-	ID       primitive.ObjectID `bson:"_id, ommitempty"`
+	ID       primitive.ObjectID `bson:"_id,omitempty"`
 	AuthorID string             `bson:"author_id"`
 	Title    string             `bson:"title"`
 	Content  string             `bson:"content"`
