@@ -4,3 +4,4 @@ package main
 //go:generate buf lint ./proto
 //go:generate buf generate
 //go:generate go build -o ./bin/ ./server
+//go:generate go build -o ./bin/ ./client
