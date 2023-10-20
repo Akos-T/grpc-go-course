@@ -1,6 +1,7 @@
 package main
 
 import (
+	pb "github.com/Akos-T/grpc-go-course/blog/proto"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -11,11 +12,11 @@ type BlogItem struct {
 	Content  string             `bson:"content"`
 }
 
-// func documentToBlog(data *BlogItem) *pb.Blog {
-// 	return &pb.Blog{
-// 		Id:       data.ID.Hex(),
-// 		AuthorId: data.AuthorID,
-// 		Title:    data.Title,
-// 		Content:  data.Content,
-// 	}
-// }
+func documentToBlog(data *BlogItem) *pb.Blog {
+	return &pb.Blog{
+		Id:       data.ID.Hex(),
+		AuthorId: data.AuthorID,
+		Title:    data.Title,
+		Content:  data.Content,
+	}
+}
