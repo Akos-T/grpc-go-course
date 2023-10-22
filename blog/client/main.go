@@ -23,4 +23,5 @@ func main() {
 	readBlog(client, "NotValidID") // invalid
 	updateBlog(client, id)
 	listBlog(client)
+	deleteBlog(client, id)
 }
