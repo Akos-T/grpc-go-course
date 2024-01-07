@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package greet;
+
+message GreetEveryoneAtOnceRequest {
+  repeated string first_names = 1;
+}

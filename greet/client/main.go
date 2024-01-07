@@ -38,4 +38,5 @@ func main() {
 	doGreetEveryone(client)
 	doGreetWithDeadline(client, time.Second*5)
 	doGreetWithDeadline(client, time.Second*1)
+	doGreetEveryoneAtOnce(client)
 }

@@ -154,3 +154,18 @@ func doGreetWithDeadline(client pb.GreetServiceClient, timeout time.Duration) {
 
 	log.Printf("GreetWithDeadline: %s\n", res.Result)
 }
+
+func doGreetEveryoneAtOnce(client pb.GreetServiceClient) {
+	log.Println("doGreetEveryoneAtOnce was invoked")
+
+	req := &pb.GreetEveryoneAtOnceRequest{
+		FirstNames: []string{"Jane", "Joe", "John", "Eric"},
+	}
+
+	res, err := client.GreetEveryoneAtOnce(context.Background(), req)
+	if err != nil {
+		log.Fatalf("Failed to greet everyone at once: %v", err)
+	}
+
+	log.Println(res.Result)
+}

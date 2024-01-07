@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"strings"
 	"time"
 
 	pb "github.com/Akos-T/grpc-go-course/greet/proto"
@@ -86,5 +87,13 @@ func (s *Server) GreetWithDeadline(ctx context.Context, req *pb.GreetRequest) (*
 
 	return &pb.GreetResponse{
 		Result: "Hello " + req.FirstName,
+	}, nil
+}
+
+func (s *Server) GreetEveryoneAtOnce(ctx context.Context, req *pb.GreetEveryoneAtOnceRequest) (*pb.GreetResponse, error) {
+	log.Printf("GreetEveryoneAtOnce was invoked with: %v\n", req)
+
+	return &pb.GreetResponse{
+		Result: "Hello " + strings.Join(req.FirstNames, ", "),
 	}, nil
 }
