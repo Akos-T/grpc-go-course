@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"io"
 	"log"
 	"math"
@@ -104,9 +103,10 @@ func (s *Server) Sqrt(ctx context.Context, req *pb.SqrtRequest) (*pb.SqrtRespons
 	number := req.Number
 
 	if number < 0 {
-		return nil, status.Error(
+		return nil, status.Errorf(
 			codes.InvalidArgument,
-			fmt.Sprintf("Received a negative number: %d", number),
+			"Received a negative number: %d",
+			number,
 		)
 	}
 
